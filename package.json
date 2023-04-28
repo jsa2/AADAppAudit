@@ -1,0 +1,15 @@
+{
+  "name": "aadappsolution",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@azure/storage-blob": "^12.14.0",
+    "axios": "^1.4.0",
+    "jsonwebtoken": "^9",
+    "yargs": "^17.7.2"
+  }
+}

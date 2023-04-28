@@ -1,0 +1,31 @@
+{
+    "rules": [
+      {
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "delete": {
+                "daysAfterLastAccessTimeGreaterThan": null,
+                "daysAfterModificationGreaterThan": 0.0
+              },
+              "enableAutoTierToHotFromCool": null,
+              "tierToArchive": null,
+              "tierToCool": null
+            },
+            "snapshot": null,
+            "version": null
+          },
+          "filters": {
+            "blobIndexMatch": null,
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": null
+          }
+        },
+        "enabled": true,
+        "name": "allDelete",
+        "type": "Lifecycle"
+      }
+    ]
+  }
