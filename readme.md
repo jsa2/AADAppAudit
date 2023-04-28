@@ -18,11 +18,6 @@ Read the [MIT license](LICENSE)
     - Compared to previous version uses now JSON batching and larger resultsize across all queries. 2-3x faster than the previous version
     - Release for Azure Security meetup UG
 
-
-**Solution to enrich information about servicePrincipals**
-
-Aim is to enable users to define their own analytics rules, while providing [blazing fast](https://learn.microsoft.com/en-us/graph/json-batching) data collection and enrichment of [servicePrincipal](https://learn.microsoft.com/en-us/azure/active-directory/develop/active-directory-how-applications-are-added) objects
-
 **Major performance improvement with JSON batching**
 ![](20230428144229.png)
 
@@ -84,13 +79,22 @@ Access to Azure Cloud Shell (Bash)
  **About the generated KQL**
 - The query is valid for 10 minutes, as SAS tokens are only generated for 10 minutes
 
+
+**Start**
+
+    git clone https://github.com/jsa2/AADAppAudit
+
+    cd AADAppAudit
+
 ## Use existing storage account
+
 ```sh 
 storageAcc=dogs
 rg=queryStorage-29991
 location=westeurope
 az storage account show-connection-string -g $rg  -n  $storageAcc -o json  > src/config.json
 ```
+
 ## Provision new 
 ```sh 
 rnd=$RANDOM
@@ -121,11 +125,7 @@ If you are running the tool in Azure Cloud Shell then all depedencies are alread
 
 
 ```sh
-
-git clone https://github.com/jsa2/AADAppAudit
-
-cd AADAppAudit
-
+# in the folder where the solution was installed 
 npm install
 
 node main 
