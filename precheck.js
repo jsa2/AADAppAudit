@@ -2,7 +2,7 @@
 const getToken = require('./src/getToken')
 const { createContainerV2 } = require('./src/storagev2')
 
-async function preCheck () {
+async function preCheck (accountName) {
 
     console.log('testing access tokens')
 
@@ -11,7 +11,7 @@ async function preCheck () {
     console.log('Az access ok')
 
     console.log('testing storage')
-   var s =await createContainerV2('sdasdasdsarewrewrewre').catch(error => {
+    var s =await createContainerV2(accountName, 'sdasdasdsarewrewrewre').catch(error => {
         console.log( error )
         return Promise.reject(`Unable to work with storage ${error}` )
     })

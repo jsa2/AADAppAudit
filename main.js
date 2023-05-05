@@ -14,8 +14,13 @@ run().catch((error) => {
 
 async function run() {
 
+    let accountName
+    if (process.argv && process.argv[2]) {
+        accountName = process.argv[2]
+    }
 
-    await preCheck()
+
+    await preCheck(accountName)
 
     var token = await getToken()
 
@@ -33,7 +38,7 @@ async function run() {
         await wexc('node nodeparse2.js')
         //await wexc('node dynamicSend.js')
         console.log('creating query')
-        await wexc('node schemaForExternalData.js')
+        await wexc(`node schemaForExternalData.js ${accountName}`)
         console.log('open kql/runtime.kql')
     } catch (error) {
         console.log('faield', error)
