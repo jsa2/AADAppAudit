@@ -2,16 +2,15 @@ var pathLoc = 'material'
 var fs = require('fs')
 var path = require('path')
 var { createStorage } = require('./SchemaStorage')
+const { argv } = require('yargs')
 //var chalk = require('chalk')
+
 
 main()
 
 async function main() {
 
-  let accountName
-  if (process.argv && process.argv[2]) {
-    accountName = process.argv[2]
-  }
+  const accountName = argv?.sa || process?.argv[2]
 
   var files = fs.readdirSync(path.resolve(pathLoc))
   var tid = fs.readFileSync('kql/tid.txt').toString()

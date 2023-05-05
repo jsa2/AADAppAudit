@@ -6,7 +6,10 @@ const { exec } = require("child_process");
 const { preCheck } = require("./precheck");
 const { admins } = require("./admins");
 const { mainV2 } = require("./mainV2");
+const { argv } = require("yargs");
 const wexc = require('util').promisify(exec)
+
+
 
 run().catch((error) => {
     return error
@@ -14,11 +17,7 @@ run().catch((error) => {
 
 async function run() {
 
-    let accountName
-    if (process.argv && process.argv[2]) {
-        accountName = process.argv[2]
-    }
-
+    const accountName = argv?.sa || process?.argv[2]
 
     await preCheck(accountName)
 
@@ -38,7 +37,7 @@ async function run() {
         await wexc('node nodeparse2.js')
         //await wexc('node dynamicSend.js')
         console.log('creating query')
-        await wexc(`node schemaForExternalData.js ${accountName}`)
+        await wexc(`node schemaForExternalData.js --sa=${accountName}`)
         console.log('open kql/runtime.kql')
     } catch (error) {
         console.log('faield', error)
