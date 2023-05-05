@@ -23,6 +23,8 @@ Read the [MIT license](LICENSE)
 
 # Release notes
 
+    Beta v 0.1.5
+    - Uses now DefaultAzureCredential to create SAS tokens and upload blobs as per JonneK pull request
     Beta v 0.1.0
     - Compared to previous version uses now JSON batching and larger resultsize across all queries. 2-3x faster than the previous version
     - Release for Azure Security meetup UG
