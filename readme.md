@@ -78,6 +78,13 @@ Access to Azure Cloud Shell (Bash)
 - Permissions to [create](#provision-new) new storage account or to use [existing](#use-existing-storage-account) one.
 - Access to Log Analytics workspace 
 - Azure CLI installed (this get tokens from the underlying Azure CLI installation)
+- Storage Blob Contributor Role on the Storage Account 
+
+https://learn.microsoft.com/en-us/azure/storage/blobs/assign-azure-role-data-access?tabs=portal
+
+![image](https://user-images.githubusercontent.com/58001986/236482756-b5fcbc82-c018-451e-b31d-999a8aa899ac.png)
+
+
   
 | Requirement                                                    | description                                                                                                                                                                                                                                                                                                                                           |
 | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -98,6 +105,7 @@ Access to Azure Cloud Shell (Bash)
     cd AADAppAudit
 
 ## Operation
+
 
 If you are running the tool in Azure Cloud Shell then all depedencies are already installed
 
