@@ -100,6 +100,17 @@ async function graphBatching(items,token, returnFilter, batchSizeF, throttleInte
         // values can be extracted, and thus only single array is returned
         console.log()
 
+        if (JSON.stringify(data).match('appRoleAssignments')) {
+            let orig = data.flat()
+            require('fs').writeFileSync('list.txt','#start \r\n')
+            let c = 0
+            orig.forEach(spI => {
+                c++
+                require('fs').appendFileSync('list.txt',`#${c}# \r\n ${JSON.stringify(spI?.body)}\r\n`)
+            })
+            
+        }
+        
         return returnFilter(data.flat())
     }
     return data

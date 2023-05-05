@@ -1,6 +1,7 @@
 const { graphListMod } = require('./src/graphf')
 const fs = require('fs')
 const { graphBatching } = require('./src/batcher')
+const { randomUUID } = require('crypto')
 
 
 
@@ -206,9 +207,25 @@ async function mainV2(token) {
 
     // AppRoleAssignedTo
 
+
     
     let spnAppRoleAssignedBatch = servicePrincipals.map(app => app.id)
-        .map(s => s = { url: `/servicePrincipals/${s}/appRoleAssignedTo`, method: "GET", providedId: s })
+        .map(s => s = { url: `/servicePrincipals/${s}/appRoleAssignments?$top=999`, method: "GET", providedId: s })
+
+        
+
+  /*  servicePrincipals.map(app => app.id).forEach( s => {
+    for (let index = 0; index < 3; index++) {
+
+        if (index % 6 == 0  || index % 5 == 0) {
+            spnAppRoleAssignedBatch.push({ url: `/servicePrincipals/${s}/appRoleAssignedTo`, method: "GET", providedId: randomUUID() })
+        }
+
+        spnAppRoleAssignedBatch.push({ url: `/servicePrincipals/${s}/appRoleAssignedTo`, method: "GET", providedId: randomUUID() })
+    }
+   }) */
+
+
 
     // modify so, that the ID created in MAP can be mapped back to result
     let spnAppRoleAssigned = await graphBatching(spnAppRoleAssignedBatch, token?.access_token, (item) => item?.map(s => s = s?.body?.value).flat(), undefined, 5, 200)
