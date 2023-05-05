@@ -208,7 +208,7 @@ async function mainV2(token) {
     // AppRoleAssignedTo
 
 
-    
+    // This was changed to appRoleAssignments from the "AppRoleAssignedTo" as the latter in case of Graph can easily have more than 999 instances. Otherwise it is more rare to have single app given more than 999 AppRole Assignments 
     let spnAppRoleAssignedBatch = servicePrincipals.map(app => app.id)
         .map(s => s = { url: `/servicePrincipals/${s}/appRoleAssignments?$top=999`, method: "GET", providedId: s })
 
