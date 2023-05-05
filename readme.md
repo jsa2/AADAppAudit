@@ -3,8 +3,6 @@
 - [Release notes](#release-notes)
   - [List of checks](#list-of-checks)
 - [Requirements and operation](#requirements-and-operation)
-  - [Use existing storage account](#use-existing-storage-account)
-  - [Provision new](#provision-new)
   - [Operation](#operation)
   - [After running the tool](#after-running-the-tool)
 - [Limitations](#limitations)
@@ -97,49 +95,17 @@ Access to Azure Cloud Shell (Bash)
 
     cd AADAppAudit
 
-## Use existing storage account
-
-```sh 
-storageAcc=dogs
-rg=queryStorage-29991
-location=westeurope
-az storage account show-connection-string -g $rg  -n  $storageAcc -o json  > src/config.json
-```
-
-## Provision new 
-```sh 
-rnd=$RANDOM
-rg=queryStorage-$rnd
-location=westeurope
-# You can ignore the warning "command substitution: ignored null byte in input"
-storageAcc=storage$(head /dev/urandom | tr -dc a-z | head -c10)
-
-echo $storageAcc
-# Create Resource Group
-az group create -n $rg \
--l $location \
---tags="svc=scan"
-
-
-# Create storageAcc Account 
-az storage account create -n $storageAcc  -g $rg --kind storageV2 -l $location -t Account --sku Standard_LRS
-
-az storage account show-connection-string -g $rg  -n  $storageAcc -o json  > src/config.json
-# Creates retention policy
-az storage account management-policy create --account-name $storageAcc  -g $rg --policy @retention.json
-  ```
-
 ## Operation
 
 If you are running the tool in Azure Cloud Shell then all depedencies are already installed
 
-
+**If you want to use with SAS token** use this [branch](https://github.com/jsa2/AADAppAudit/tree/SASTokenVer#use-existing-storage-account) instead 
 
 ```sh
 # in the folder where the solution was installed 
 npm install
 
-node main 
+node main yourstorageaccountshortname
 
 # paste the code in runtime.kql to the desired log analytics worspace
 # "navigate to kql/runtime.kql if code does not open up
