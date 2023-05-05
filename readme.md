@@ -1,3 +1,14 @@
+- [Azure AD Application Analytics Solution](#azure-ad-application-analytics-solution)
+- [Before using this tool](#before-using-this-tool)
+- [Release notes](#release-notes)
+  - [List of checks](#list-of-checks)
+- [Requirements and operation](#requirements-and-operation)
+  - [Use existing storage account](#use-existing-storage-account)
+  - [Provision new](#provision-new)
+  - [Operation](#operation)
+  - [After running the tool](#after-running-the-tool)
+- [Limitations](#limitations)
+- [Contribution](#contribution)
 
 
 # Azure AD Application Analytics Solution
@@ -144,6 +155,12 @@ node main
 
 - Remove installation of this service (removes the json files that were stored for the query)
 - Delete the resource group (if you provisoned new one) ``az group delete -n $rg`` 
+
+
+# Limitations
+
+This tool supports paginated results for the initial batch creation. The later operations which are done by Native MS Graph JSON batching at this point do not look for paginated results. This means, that if there is an app, that has more than 999 appRoleAssignments, it will only display the first 999 assignments that are granted for that app (technical limit of these assignments is 1500, so it is possible that some app has been given more than 999 assignments)
+- Same applies for app that has more than 999 client secrets, or more than 999 owners, the owners over that amount are not shown on the report 
 
 
 # Contribution
