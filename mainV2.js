@@ -154,7 +154,7 @@ async function mainV2(token) {
     let [spnFedCred,appFedCred] = filteredOpsNext
 
     let appFedCredsListBatch = appFedCred?.objects
-    .map(s => s = { url: `/applications/${s?.id}/federatedIdentityCredentials`, method: "GET", providedId: s?.id })
+    .map(s => s = { url: `/applications/${s?.id}/federatedIdentityCredentials?$top=999`, method: "GET", providedId: s?.id })
 
     // modify so, that the ID created in MAP can be mapped back to result
     let appFedCreds = await graphBatching(appFedCredsListBatch, token?.access_token, (item) => item?.map(s => s = { content: s?.body?.value, id: s?.id }), undefined, 5, 200)
@@ -162,7 +162,7 @@ async function mainV2(token) {
     console.log(appFedCreds?.length)
 
     let spnFedCredsListBatch = spnFedCred?.objects
-    .map(s => s = { url: `/servicePrincipals/${s?.id}/federatedIdentityCredentials`, method: "GET", providedId: s?.id })
+    .map(s => s = { url: `/servicePrincipals/${s?.id}/federatedIdentityCredentials?$top=999`, method: "GET", providedId: s?.id })
 
     // modify so, that the ID created in MAP can be mapped back to result
     let spnFedCreds = await graphBatching(spnFedCredsListBatch, token?.access_token, (item) => item?.map(s => s = { content: s?.body?.value, id: s?.id }), undefined, 5, 200)
@@ -176,7 +176,7 @@ async function mainV2(token) {
     // AppOwnersOwners and
 
     let AppOwnersOwnersBatch = applications.filter(app => app.HasOwner == 'appsOwner')
-    .map(s => s = { url: `/applications/${s?.id}/owners?$select=id,displayName`, method: "GET", providedId: s?.appId })
+    .map(s => s = { url: `/applications/${s?.id}/owners?$select=id,displayName&$top=999`, method: "GET", providedId: s?.appId })
 
     // modify so, that the ID created in MAP can be mapped back to result
     let appOwners = await graphBatching(AppOwnersOwnersBatch, token?.access_token, (item) => item?.map(s => s = { content: s?.body?.value, id: s?.id }), undefined, 5, 200)
@@ -185,7 +185,7 @@ async function mainV2(token) {
 
 
     let SPNOwnersOwnersBatch = servicePrincipals.filter(spn => spn.HasOwner == 'spnOwner')
-    .map(s => s = { url: `/servicePrincipals/${s?.id}/owners?$select=id,displayName,AppId`, method: "GET", providedId: s?.appId })
+    .map(s => s = { url: `/servicePrincipals/${s?.id}/owners?$select=id,displayName,AppId&$top=999`, method: "GET", providedId: s?.appId })
 
     // modify so, that the ID created in MAP can be mapped back to result
     let SPNOwners = await graphBatching(SPNOwnersOwnersBatch, token?.access_token, (item) => item?.map(s => s = { content: s?.body?.value, id: s?.id }), undefined, 5, 200)
