@@ -1,68 +1,69 @@
+const {BlobServiceClient,
+    BlobSASPermissions,
+    generateBlobSASQueryParameters,
+    SASProtocol } = require('@azure/storage-blob');
 
+async function createContainerV2(accountName, containerName) {
 
-let sta = require('./config.json').connectionString
+const { DefaultAzureCredential } = require('@azure/identity');
+const blobServiceClient = new BlobServiceClient(
+    `https://${accountName}.blob.core.windows.net`,
+    new DefaultAzureCredential()
+);
 
-/* const { BlobUtilities } = require('azure-storage') */
-
-
-
-const {
-    BlobServiceClient,
-    AccountSASPermissions,
-    AccountSASServices,
-    AccountSASResourceTypes,
-    SASProtocol
-} = require('@azure/storage-blob');
-
-const blobServiceClient = BlobServiceClient.fromConnectionString(sta)
-
-async function createContainerV2(containerName) {
-
-    const containerClient = blobServiceClient.getContainerClient(containerName);
-    await containerClient.createIfNotExists();
-    console.log(`Checking container ${containerName} successfully`)
-
+const containerClient = blobServiceClient.getContainerClient(containerName);
+await containerClient.createIfNotExists();
+console.log(`Checking container ${containerName} successfully`)
 
 }
 
 
-async function uploadV2(container, file, filepath) {
+async function uploadV2(accountName, container, file, filepath) {
 
-    const containerClient = blobServiceClient.getContainerClient(container);
+const { DefaultAzureCredential } = require('@azure/identity');
+const blobServiceClient = new BlobServiceClient(
+    `https://${accountName}.blob.core.windows.net`,
+    new DefaultAzureCredential()
+);
 
-    const blockBlobClient = containerClient.getBlockBlobClient(file);
+const containerClient = blobServiceClient.getContainerClient(container);
 
-    let res = await blockBlobClient.uploadFile(filepath)
+const blockBlobClient = containerClient.getBlockBlobClient(file);
 
-
+let res = await blockBlobClient.uploadFile(filepath)
 
 }
 
+async function getSasUrlV2(accountName, container, name, duration, IPAddressOrRange) {
 
-async function getSasUrlV2(container, name, duration, IPAddressOrRange) {
+const { DefaultAzureCredential } = require('@azure/identity');
+const blobServiceClient = new BlobServiceClient(
+    `https://${accountName}.blob.core.windows.net`,
+    new DefaultAzureCredential()
+);
 
-    const containerClient = blobServiceClient.getContainerClient(container);
+const containerClient = blobServiceClient.getContainerClient(container);
 
-    let d1 = new Date(),
-        d2 = new Date(d1);
-    d2.setMinutes(d1.getMinutes() + duration);
+let d1 = new Date(),
+    d2 = new Date(d1);
+d2.setMinutes(d1.getMinutes() + duration);
 
-    const sasOptions = {
+const sasOptions = {
+    blobName: name,
+    containerName: container,
+    permissions: BlobSASPermissions.parse("r"), // Required
+    // startsOn: d1, // Optional. Date type
+    expiresOn: d2, // Required. Date type
+    // ipRange: { start: "0.0.0.0", end: "255.255.255.255" }, // Optional
+    protocol: SASProtocol.Https, // Optional
+    version: "2021-12-02" // Must greater than or equal to 2018-11-09 to generate user delegation SAS
+};
 
-        services: AccountSASServices.parse("b").toString(),          // blobs, tables, queues, files
-        resourceTypes: AccountSASResourceTypes.parse("o").toString(), // service, container, object
-        permissions: AccountSASPermissions.parse("r"),          // permissions
-        protocol: SASProtocol.Https,
-        /*   startsOn: new Date(),
-          expiresOn: new Date(new Date().valueOf() + (10 * 60 * 1000)),   // 10 minutes */
-        startsOn: d1,
-        expiresOn: d2
-    };
+const userDelegationKey = await blobServiceClient.getUserDelegationKey(d1, d2);
+const containerSAS = generateBlobSASQueryParameters(sasOptions, userDelegationKey, accountName).toString();
 
-    let url2 = await containerClient.generateSasUrl(sasOptions)
-
-    let url = url2.replace('material',`material/${name}`)
-    return (url)
+sasUrl = `${containerClient.getBlockBlobClient(name).url}?${containerSAS.toString()}`;
+return sasUrl
 
 
 }

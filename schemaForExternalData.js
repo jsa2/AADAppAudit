@@ -8,6 +8,11 @@ main()
 
 async function main() {
 
+  let accountName
+  if (process.argv && process.argv[2]) {
+    accountName = process.argv[2]
+  }
+
   var files = fs.readdirSync(path.resolve(pathLoc))
   var tid = fs.readFileSync('kql/tid.txt').toString()
   var fullSchema = `let home="${tid}"; \n //`
@@ -43,7 +48,7 @@ async function main() {
         schema += ", "
       }
     })
-    let url = await createStorage(pathLoc, file, `./${pathLoc}/${file}`)
+    let url = await createStorage(accountName, pathLoc, file, `./${pathLoc}/${file}`)
     schema += `)[@"${url}"] with (format="multijson"));`
     schema += '\n //'
     fullSchema += schema
