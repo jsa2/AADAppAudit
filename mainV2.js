@@ -214,7 +214,9 @@ async function mainV2(token) {
 
         
 
-  /*  servicePrincipals.map(app => app.id).forEach( s => {
+  /*  
+  // Allows to debug higher batch sizes for logic throttling testing
+  servicePrincipals.map(app => app.id).forEach( s => {
     for (let index = 0; index < 3; index++) {
 
         if (index % 6 == 0  || index % 5 == 0) {
