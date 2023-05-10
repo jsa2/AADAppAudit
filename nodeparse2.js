@@ -83,14 +83,28 @@ async function main() {
         item.ApplicationHasPassword = app?.passwordCredentials || item.passwordCredentials
         item.ApplicationHasPublicClient = app?.isFallbackPublicClient || null
         item.allCredentials = []
+
+        item.FullCredentials = {
+            spnPassword:item.passwordCredentials,
+            spnKeyCredential: item.keyCredentials,
+            spnFederatedCredentials: item.federatedCredentials
+        }
+
         item.passwordCredentials.map(s => item.allCredentials.push(`SPNPassword:${s.keyId}`))
         item.keyCredentials.map(s => item.allCredentials.push(`SPNCert:${s.keyId}`))
         item.federatedCredentials.map(s => item.allCredentials.push(`SPNFederatedCred:${s.issuer}`))
+
 
         if (app) {
             app.passwordCredentials.map(s => item.allCredentials.push(`AppPassword:${s.keyId}`))
             app.keyCredentials.map(s => item.allCredentials.push(`AppCert:${s.keyId}`))
             app.federatedCredentials.map(s => item.allCredentials.push(`appFederatedCred:${s.issuer}`))
+
+            item.FullCredentials = {
+                appPassword:app.passwordCredentials,
+                appKeyCredential: app.keyCredentials,
+                appFederatedCredentials: app.federatedCredentials
+            }
         }
 
     })
