@@ -22,7 +22,8 @@ Read the [MIT license](LICENSE)
 ⚠ Always test the tool first in test environments with non-sensitive data
 
 # Release notes
-
+    Beta 
+    - Added check for implicit grant
     Beta v 0.1.5
     - Uses now DefaultAzureCredential to create SAS tokens and upload blobs as per JonneK pull request
     Beta v 0.1.0

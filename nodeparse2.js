@@ -44,6 +44,9 @@ async function main() {
         */
 
 
+        item.implicitGrant = app?.web?.implicitGrantSettings || null
+
+
         item.permissionsReading = item?.permissions.map(s => s?.scope?.split(' ')
             .map(scp => scp = `"${s?.type} --> ${s?.principalDisplayName || s?.userPrincipalName} --> ${s?.resourceDisplayName} - permission: ${s?.roleDisplayName || scp}"`)).flat()
 
