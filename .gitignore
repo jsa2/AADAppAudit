@@ -3,8 +3,8 @@ token.JSON
 *.json
 runtime.kql
 tid.txt
-.csv
-.ps1
+*.csv
+*.ps1
 # exclude from JSON flag
 !package.json
 !package-lock.json
