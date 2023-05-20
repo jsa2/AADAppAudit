@@ -5,6 +5,7 @@
 - [Requirements and operation](#requirements-and-operation)
   - [Operation](#operation)
   - [After running the tool](#after-running-the-tool)
+  - [Running in limited mode (CSV generation)](#running-in-limited-mode-csv-generation)
 - [Limitations](#limitations)
 - [Contribution](#contribution)
 
@@ -132,6 +133,28 @@ node main yourstorageaccountshortname
 
 - Remove installation of this service (removes the json files that were stored for the query)
 - Delete the resource group (if you provisoned new one) ``az group delete -n $rg`` 
+
+
+## Running in limited mode (CSV generation)
+
+To only generate CSV, you can run the tool in limited mode, which removes some basic analytic functions that are present in the Log Analytics query.
+
+- Does not require Azure Subscription with storage account (Only AAD access is needed)
+- Requires still Azure CLI and Node JS (+14) to be installed on the system this tool is run
+  
+    The limited mode returns following data in CSV
+
+    ``app${delim}appID${delim}aadRole${delim}permissions${delim}danglingRedirect`` 
+
+    ![](20230519165316.png)
+
+    ![](20230519164812.png)
+  
+
+  - Changing the delimitter of the CSV you can run the tool as follows ``node main --delimitter=";"`` 
+
+
+
 
 
 # Limitations

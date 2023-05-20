@@ -17,9 +17,16 @@ run().catch((error) => {
 
 async function run() {
 
-    const accountName = argv?.sa || process?.argv[2]
+    
+    let accountName = argv?.sa || (process?.argv[2])
+    if (accountName?.match('--')) {accountName=undefined}
 
-    await preCheck(accountName)
+    if (accountName) {
+        await preCheck(accountName)
+    } else {
+        console.log('running only CSV output')
+    }
+    
 
     var token = await getToken()
 
@@ -37,10 +44,21 @@ async function run() {
         await wexc('node nodeparse2.js')
         //await wexc('node dynamicSend.js')
         console.log('creating query')
-        await wexc(`node schemaForExternalData.js --sa=${accountName}`)
-        console.log('open kql/runtime.kql')
+        
+        if (accountName) {
+
+            await wexc(`node schemaForExternalData.js --sa=${accountName}`)
+            console.log('open kql/runtime.kql')
+    
+            } else {
+            await   wexc(`node toCSV.js --delimitter=${argv?.delimitter || ","}`)
+        console.log('to review the results in csv open the output.csv, remember, that in order to show line breaks, for example in excel you need to select the "wrap text"')
+         }
+       
+       
+
     } catch (error) {
-        console.log('faield', error)
+        console.log('failed', error)
         fs.unlinkSync('sessionToken.json')
     }
 
