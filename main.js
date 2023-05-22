@@ -47,11 +47,12 @@ async function run() {
         
         if (accountName) {
 
-            await   wexc(`node toCSV.js --delimitter="${argv?.delimitter || ','}"`)
+            await wexc(`node schemaForExternalData.js --sa=${accountName}`)
+            
             console.log('open kql/runtime.kql')
     
             } else {
-            await   wexc(`node toCSV.js --delimitter=${argv?.delimitter || ","}`)
+            await   wexc(`node toCSV.js --delimitter="${argv?.delimitter || ','}"`)
         console.log('to review the results in csv open the output.csv, remember, that in order to show line breaks, for example in excel you need to select the "wrap text"')
          }
        
