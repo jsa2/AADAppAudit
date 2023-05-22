@@ -47,7 +47,7 @@ async function run() {
         
         if (accountName) {
 
-            await wexc(`node schemaForExternalData.js --sa=${accountName}`)
+            await   wexc(`node toCSV.js --delimitter="${argv?.delimitter || ','}"`)
             console.log('open kql/runtime.kql')
     
             } else {
