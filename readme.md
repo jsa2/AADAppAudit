@@ -151,7 +151,7 @@ To only generate CSV, you can run the tool in limited mode, which removes some b
     ![](20230519164812.png)
   
 
-  - Changing the delimitter of the CSV you can run the tool as follows ``node main --delimitter=";"`` 
+  - Changing the delimitter of the CSV you can run the tool as follows ``node main --delimitter=;`` 
 
 
 
