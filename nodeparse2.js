@@ -48,7 +48,7 @@ async function main() {
 
 
         item.permissionsReading = item?.permissions.map(s => s?.scope?.split(' ')
-            .map(scp => scp = `"${s?.type} --> ${s?.principalDisplayName || s?.userPrincipalName} --> ${s?.resourceDisplayName} - permission: ${s?.roleDisplayName || scp}"`)).flat()
+            .map(scp => scp = `${s?.type} --> ${s?.principalDisplayName || s?.userPrincipalName} --> ${s?.resourceDisplayName} - permission: ${s?.roleDisplayName || scp}`)).flat()
 
 
 
