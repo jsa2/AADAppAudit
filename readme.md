@@ -135,7 +135,7 @@ node main yourstorageaccountshortname
 - Delete the resource group (if you provisoned new one) ``az group delete -n $rg`` 
 
 
-## Running in limited mode (CSV generation)
+## Running in local mode (CSV generation)
 
 To only generate CSV, you can run the tool in limited mode, which removes some basic analytic functions that are present in the Log Analytics query.
 
