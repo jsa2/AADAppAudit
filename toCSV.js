@@ -1,7 +1,7 @@
 const src = require('./material/servicePrincipalsUP.json')
 const { argv } = require('yargs')
 delim = argv?.delimitter
-var top = `app${delim}appID${delim}aadRole${delim}permissions${delim}danglingRedirect\r\n`
+var top = `app${delim}appID${delim}aadRole${delim}permissions${delim}danglingRedirect${delim}appType${delim}credentials\r\n`
 let breakC = 0
 src.map(s => {
 
@@ -36,8 +36,18 @@ src.map(s => {
 
     }).join('')
 
+    const credentials = s?.allCredentials?.map((d, count, r) => {
+        if (r?.length > count + 1) {
+            return `${d}\r\n`
+        } else {
+            return `${d}`
+        }
+        console.log(count)
 
-    top += `${s?.displayName}${delim}${s?.appId}"${delim}"${admins}"${delim}"${permissions}"${delim}"${danglingRedirect}"`;
+    }).join('')
+
+
+    top += `${s?.displayName}${delim}${s?.appId}${delim}"${admins}"${delim}"${permissions}"${delim}"${danglingRedirect}"${delim}${s?.appType}${delim}"${credentials}"`;
 
     if (breakC !== src?.length) {
         top += '\r';
