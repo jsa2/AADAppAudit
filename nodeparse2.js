@@ -94,11 +94,31 @@ async function main() {
         item.keyCredentials.map(s => item.allCredentials.push(`SPNCert:${s.keyId}`))
         item.federatedCredentials.map(s => item.allCredentials.push(`SPNFederatedCred:${s.issuer}`))
 
+        item.requiredResourceAccessOnlyPresentOnApps = []
 
         if (app) {
             app.passwordCredentials.map(s => item.allCredentials.push(`AppPassword:${s.keyId}`))
             app.keyCredentials.map(s => item.allCredentials.push(`AppCert:${s.keyId}`))
             app.federatedCredentials.map(s => item.allCredentials.push(`appFederatedCred:${s.issuer}`))
+
+            app.requiredResourceAccess.map(s  => {
+
+                let resource = spns.find(r  => r.appId == s?.resourceAppId)
+             
+                if (!resource) {
+                    return;
+                }
+                
+                let matches = s?.resourceAccess.map(a => resource?.appRoles.find(appR => a.id == appR?.id) || resource?.oauth2PermissionScopes.find(appR => a.id == appR?.id))
+   
+
+                  matches.forEach(m =>item.requiredResourceAccessOnlyPresentOnApps.push(`${m?.type || m?.origin} - ${m?.value} - ${resource?.displayName}`) )
+                  if (matches.length > 1) {
+                    
+                    //console.log(app.requiredResourceAccess)
+                  }
+
+            })
 
             item.FullCredentials = {
                 appPassword:app.passwordCredentials,
