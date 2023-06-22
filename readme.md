@@ -5,7 +5,7 @@
 - [Requirements and operation](#requirements-and-operation)
   - [Operation](#operation)
   - [After running the tool](#after-running-the-tool)
-  - [Running in limited mode (CSV generation)](#running-in-limited-mode-csv-generation)
+  - [Running in local mode (CSV generation)](#running-in-local-mode-csv-generation)
 - [Limitations](#limitations)
 - [Contribution](#contribution)
 
@@ -24,6 +24,9 @@ Read the [MIT license](LICENSE)
 
 # Release notes
     Beta 
+    Beta v 0.1.6
+    - Added check for SPN assignments via groups
+    Beta
     - Added check for implicit grant
     Beta v 0.1.5
     - Uses now DefaultAzureCredential to create SAS tokens and upload blobs as per JonneK pull request
