@@ -1,5 +1,5 @@
 
-var fs = require('fs')
+const fs = require('fs')
 const { decode } = require("jsonwebtoken")
 var path = require('path')
 const { runner } = require('./pluginRunner')

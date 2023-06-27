@@ -2,6 +2,9 @@ const { graphListMod } = require('./src/graphf')
 const fs = require('fs')
 const { graphBatching } = require('./src/batcher')
 const { randomUUID } = require('crypto')
+const { argv } = require('yargs')
+const { azBatch } = require('./src/azbatch')
+const { getAzRoles } = require('./roleassignments')
 
 
 
@@ -213,6 +216,7 @@ async function mainV2(token) {
         .map(s => s = { url: `/servicePrincipals/${s}/appRoleAssignments?$top=999`, method: "GET", providedId: s })
 
         
+        
 
   /*  
   // Allows to debug higher batch sizes for logic throttling testing
@@ -234,7 +238,14 @@ async function mainV2(token) {
 
     console.log(spnAppRoleAssigned?.length)
 
-    
+    if (argv?.azRbac) {
+        console.log('getting AzRoles')
+        await getAzRoles(servicePrincipals).catch(err => {
+            console.log()
+        })
+        console.log()
+
+    }
 
     fs.writeFileSync(`roles.json`, JSON.stringify(spnAppRoleAssigned))
    

@@ -25,6 +25,8 @@ Read the [MIT license](LICENSE)
 # Release notes
     Beta 
     Beta v 0.1.6
+     - Azure RBAC assigments directly assigned to SPNs now available 
+    Beta v 0.1.6
     - Added check for SPN assignments via groups
     Beta
     - Added check for implicit grant
@@ -62,7 +64,8 @@ Read the [MIT license](LICENSE)
 ![](20230428143354.png)
 
 6. List API permissions in the following format 
-  ```json
+
+```json
 { "permissionsReading": [
           "\"AppRole --> api-15764 --> Microsoft Graph - permission: PrivilegedAccess.Read.AzureAD\"",
           "\"AppRole --> api-15764 --> Microsoft Graph - permission: RoleManagement.Read.All\"",
@@ -74,8 +77,13 @@ Read the [MIT license](LICENSE)
           "\"oauth2PermissionGrants --> admin santasalo --> Microsoft Graph - permission: User.Read\"",
       ]
     }
-  ```
+```
 
+7. List Azure RBAC permissions available using by the use of ``--azRbac`` option 
+
+    example: node main storageAccount --azRbac
+
+  
 
 # Requirements and operation
 
