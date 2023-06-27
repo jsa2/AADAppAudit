@@ -81,7 +81,11 @@ Read the [MIT license](LICENSE)
 
 7. List Azure RBAC permissions available using by the use of ``--azRbac`` option 
 
-    example: node main storageAccount --azRbac
+    example: ``node main storageAccount --azRbac`` 
+    
+    - In the query that is pasted to Log Analytics, you need to expand it as follows by adding ``azRbac`` into the ``project`` statement 
+
+![Alt text](image.png)
 
   
 
