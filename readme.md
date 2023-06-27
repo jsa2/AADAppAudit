@@ -24,7 +24,7 @@ Read the [MIT license](LICENSE)
 
 # Release notes
     Beta 
-    Beta v 0.1.6
+    Beta v 0.1.7 
      - Azure RBAC assigments directly assigned to SPNs now available 
     Beta v 0.1.6
     - Added check for SPN assignments via groups
