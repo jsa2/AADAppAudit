@@ -4,70 +4,28 @@ const { default: axios } = require('axios')
 const { azBatch } = require('./src/azbatch')
 const { getARMToken } = require('./src/getArmToken')
 const { decode } = require('jsonwebtoken')
+const { resourceGraphGovernanceData } = require('./src/resourceGraphQ')
+
 
 /* 
-getAzRoles(require('./servicePrincipals.json')) */
-
+getAzRoles(require('./servicePrincipals.json'))
+ */
 async function getAzRoles(spnObjects) {
 
-    let token = await getARMToken()
 
-    spnObjects.map(s => s.azRbac = [])
+    let arm = await resourceGraphGovernanceData()
 
-    let tokenDetails = decode(token)
+    spnObjects.map(s => {
+        let assignments = arm.find(a =>  a?.properties_principalId == s?.id) 
 
-    let { data: subs } = await axios({
-        url: 'https://management.azure.com/subscriptions?api-version=2020-01-01',
-        headers: {
-            Authorization: `Bearer ${token}`
+        if (assignments) {
+            console.log()
         }
-    })
-
-    let { data: roleDefs } = await axios({
-        url: 'https://management.azure.com/providers/Microsoft.Authorization/roleDefinitions?api-version=2018-01-01-preview',
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-
-    console.log(subs)
-
-
-    //Check only for subs that are in the tenant the token is issued for 
-    for await (sub of subs?.value?.filter(s => s?.tenantId == tokenDetails?.tid)) {
-
-        let rgList = spnObjects.map(s => s = { url: `https://management.azure.com/subscriptions/${sub?.subscriptionId}/providers/Microsoft.Authorization/roleAssignments?%24filter=assignedTo('${s?.id}')&api-version=2020-04-01-preview`, httpMethod: "GET" })
-
-        let assignmentsOnResourceLevel = await azBatch(rgList, token, (item) => item?.map(s => s = { content: s?.content?.value, id: s?.name }), undefined, 4, 1000)
+        s.azRbac = assignments?.set_combinedRole || []
       
-        let som = assignmentsOnResourceLevel?.filter(s => s?.content?.length > 0).map(ob => ob?.content?.map(oc => oc?.properties)).flat()
+    })
 
-        som.map(r => r.roleDefinitionName = roleDefs?.value?.find(s => s?.id?.split('/').pop() == r?.roleDefinitionId?.split('/').pop())?.properties?.roleName)
-        
-        let simplifiedVer = som.map(s => {
-            let {roleDefinitionName, scope, principalId} = s
-            return {roleDefinitionName, scope, principalId}
-        })
 
-        spnObjects.map(sp => {
-            let sd = simplifiedVer.filter(s => s?.principalId == sp?.id)
-            if (sd?.length > 0) {
-                console.log(sp)
-                sp.azRbac.push(sd)
-                sp.azRbac = sp.azRbac?.flat()
-                console.log(sp?.azRbac)
-            }
-            
-        })
-        console.log()
-
-       
-        
-
-    }
-
-    console.log()
-    
     return spnObjects
 
 
