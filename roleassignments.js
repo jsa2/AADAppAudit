@@ -5,8 +5,8 @@ const { azBatch } = require('./src/azbatch')
 const { getARMToken } = require('./src/getArmToken')
 const { decode } = require('jsonwebtoken')
 
-/* 
-getAzRoles(require('./servicePrincipals.json')) */
+
+getAzRoles(require('./servicePrincipals.json'))
 
 async function getAzRoles(spnObjects) {
 
@@ -51,6 +51,11 @@ async function getAzRoles(spnObjects) {
 
         spnObjects.map(sp => {
             let sd = simplifiedVer.filter(s => s?.principalId == sp?.id)
+
+            if (sp?.id == "2db91dcb-058f-462f-89c0-1ce91ce12025") {
+                console.log()
+            }
+
             if (sd?.length > 0) {
                 console.log(sp)
                 sp.azRbac.push(sd)
