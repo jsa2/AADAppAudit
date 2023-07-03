@@ -18,9 +18,9 @@ async function getAzRoles(spnObjects) {
     spnObjects.map(s => {
         let assignments = arm.find(a =>  a?.properties_principalId == s?.id) 
 
-        if (assignments) {
+      /*   if (assignments) {
             console.log()
-        }
+        } */
         s.azRbac = assignments?.set_combinedRole || []
       
     })

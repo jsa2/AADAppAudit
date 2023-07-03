@@ -201,16 +201,5 @@ async function graphBatchingBeta(items,token, returnFilter, batchSizeF, throttle
 
 }
 
-async function axiosDataReturn(opt, batchIndicator) {
-
-    try {
-        let { data } = await axios(opt)
-        console.log(`success on batch ${batchIndicator.batchNumber} of ${batchIndicator.size} requests`, )
-        return data?.responses
-    } catch (err) {
-        return err
-    }
-
-}
 
 module.exports={graphBatching,graphBatchingBeta}

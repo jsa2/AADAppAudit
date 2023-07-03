@@ -45,7 +45,7 @@ async function run() {
         //await wexc('node dynamicSend.js')
         console.log('creating query')
         
-        if (accountName) {
+        if (accountName) {  
 
             await wexc(`node schemaForExternalData.js --sa=${accountName}`)
             

@@ -4,8 +4,6 @@ const getToken = require("./src/getToken")
 
 module.exports = { admins }
 
-admins()
-
 async function admins() {
 
     var graphToken = await getToken()
