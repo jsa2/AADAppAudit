@@ -89,7 +89,7 @@ Read the [MIT license](LICENSE)
 
 ![Alt text](image.png)
 
-1. Chante the ``project`` with ``lastSignIn`` , and add to the last line `` extend lastSignInDate = parse_json(lastSignIn).lastSignInActivity.lastSignInDateTime``
+7. Change the ``project`` with ``lastSignIn`` , and add to the last line `` extend lastSignInDate = parse_json(lastSignIn).lastSignInActivity.lastSignInDateTime``
 ```sql
 let home="033794f5-7c9d-4e98-923d-7b49114b7ac3"; 
  //
