@@ -1,4 +1,4 @@
-const { graphListMod } = require('./src/graphf')
+const { graphListMod, graphListModBeta } = require('./src/graphf')
 const fs = require('fs')
 const { graphBatching } = require('./src/batcher')
 const { randomUUID } = require('crypto')
@@ -69,6 +69,10 @@ async function mainV2(token) {
      }
      fs.writeFileSync('ops.json', JSON.stringify(ops))
 
+     // Check for betaSign-ins 
+
+     const lastSignIn = []
+     await graphListModBeta(token?.access_token, '/reports/servicePrincipalSignInActivities', undefined,lastSignIn)
 
      //
  
@@ -252,6 +256,8 @@ async function mainV2(token) {
     fs.writeFileSync('servicePrincipals.json',JSON.stringify(servicePrincipals))
 
     fs.writeFileSync('oauth2PermissionGrants.json',JSON.stringify(oauth2PermissionGrants))
+
+    fs.writeFileSync('lastSignin.json',JSON.stringify(lastSignIn))
 
 
     fs.writeFileSync('applications.json',JSON.stringify(applications))

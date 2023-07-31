@@ -6,6 +6,7 @@ const roles = require('./roles.json').filter(s => s?.principalType == "ServicePr
 const { getWebSitesName } = require('./src/dnslook')
 const { parse } = require('url')
 const admins = require('./material/admins.json')
+const spnSignins = require('./lastSignin.json')
 
 const msTenants = ["72f988bf-86f1-41af-91ab-2d7cd011db47", "0d2db716-b331-4d7b-aa37-7f1ac9d35dae", "f52f6d19-877e-4eaf-87da-9da27954c544", "f8cdef31-a31e-4b4a-93e4-5f571e91255a"]
 
@@ -35,7 +36,7 @@ async function main() {
 
     spns.map((item) => {
 
-
+        item.lastSignIn = spnSignins?.find(s => s?.appId == item?.appId)|| null
         let app = applications.find((spn) => spn.appId == item.appId)
         item.permissions = roles.filter(s => s?.principalId == item?.id)
         item.permissions.push(oauth2Grants.filter(s => s?.clientId == item?.id))

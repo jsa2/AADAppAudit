@@ -24,6 +24,8 @@ Read the [MIT license](LICENSE)
 
 # Release notes
     Beta 
+    Beta v 0.1.8
+    - LastSignInTime as per https://learn.microsoft.com/en-us/graph/api/reportroot-list-serviceprincipalsigninactivities?view=graph-rest-beta
     Beta v 0.1.7 
      - Azure RBAC assigments directly assigned to SPNs now available 
     Beta v 0.1.6
@@ -87,7 +89,27 @@ Read the [MIT license](LICENSE)
 
 ![Alt text](image.png)
 
-  
+1. Chante the ``project`` with ``lastSignIn`` , and add to the last line `` extend lastSignInDate = parse_json(lastSignIn).lastSignInActivity.lastSignInDateTime``
+```sql
+let home="033794f5-7c9d-4e98-923d-7b49114b7ac3"; 
+ //
+let admins = (externaldata (id: string, displayName: string, role: string)[@""] with (format="multijson"));
+ //
+let doNotRemove = (externaldata (test: string)[@""] with (format="multijson"));
+// 
+// Pre-existing part from query (Dont paste this, just for example here)
+//
+let servicePrincipalsUP = (externaldata (id: string, deletedDateTime: dynamic, accountEnabled: string, alternativeNames: dynamic, appDisplayName: string, appDescription: dynamic, appId: string, applicationTemplateId: dynamic, appOwnerOrganizationId: string, appRoleAssignmentRequired: string, createdDateTime: string, description: dynamic, disabledByMicrosoftStatus: dynamic, displayName: string, homepage: dynamic, loginUrl: dynamic, logoutUrl: dynamic, notes: dynamic, notificationEmailAddresses: dynamic, preferredSingleSignOnMode: dynamic, preferredTokenSigningKeyThumbprint: dynamic, replyUrls: dynamic, servicePrincipalNames: dynamic, servicePrincipalType: string, signInAudience: string, tags: dynamic, tokenEncryptionKeyId: dynamic, samlSingleSignOnSettings: dynamic, addIns: dynamic, appRoles: dynamic, info: dynamic, keyCredentials: dynamic, oauth2PermissionScopes: dynamic, passwordCredentials: dynamic, resourceSpecificApplicationPermissions: dynamic, verifiedPublisher: dynamic, HasOwner: string, federatedCredentials: dynamic, owners: dynamic, lastSignIn: dynamic, permissions: dynamic, implicitGrant: dynamic, permissionsReading: dynamic, isAdminAADrole: dynamic, appType: string, ApplicationHasPassword: dynamic, ApplicationHasPublicClient: dynamic, allCredentials: dynamic, FullCredentials: dynamic, requiredResourceAccessOnlyPresentOnApps: dynamic, danglingRedirect: dynamic)[@""] with (format="multijson"));
+ // // //////// ///////
+ // The actual change lastSignIn
+servicePrincipalsUP
+| project appId, displayName, appType, permissionsReading, allCredentials, owners, isAdminAADrole, danglingRedirect, lastSignIn
+| extend includesMultipleCredentialSources = case(tostring(allCredentials) contains "App" and tostring(allCredentials) contains "SPN", true, false)
+| extend MultitenantAppWithTenantedCreds = iff(tostring(allCredentials) contains "SPN" and appType !contains "internal" and appType !contains "managed" , true, false )
+| extend SharedAppForUserAndAppPermissions = iff(tostring(permissionsReading) contains "AppRole -->" and tostring(permissionsReading) contains "oauth2PermissionGrants -->" , true, false )
+| extend lastSignInDate = parse_json(lastSignIn).lastSignInActivity.lastSignInDateTime
+
+```
 
 # Requirements and operation
 

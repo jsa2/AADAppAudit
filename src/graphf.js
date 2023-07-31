@@ -276,7 +276,7 @@ async function graphListModBeta(token, operation, skiptoken, responseCollector) 
     if (data['@odata.nextLink']) {
         data.value.forEach((item) => responseCollector.push(item))
         console.log(data['@odata.nextLink'])
-        await graphListMod(token, operation, data['@odata.nextLink'], responseCollector)
+        await graphListModBeta(token, operation, data['@odata.nextLink'], responseCollector)
 
     }
     else {
