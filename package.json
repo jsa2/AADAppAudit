@@ -1,0 +1,17 @@
+{
+  "name": "aadappsolution",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@azure/identity": "^3.1.4",
+    "@azure/storage-blob": "^12.14.0",
+    "axios": "^1.4.0",
+    "js-beautify": "^1.14.9",
+    "jsonwebtoken": "^9",
+    "yargs": "^17.7.2"
+  }
+}

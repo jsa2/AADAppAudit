@@ -1,0 +1,86 @@
+[{"test":1},{"test":2},{
+    "id": "0038d536-cd74-4242-b97b-55b2c0b42acb",
+    "deletedDateTime": null,
+    "accountEnabled": true,
+    "alternativeNames": [],
+    "appDisplayName": "EXAMPLE APP Not In your Tenant akoyqyqnwir-main-api ",
+    "appDescription": null,
+    "appId": "daf4bf56-a103-4d4b-a9ef-572da8367884",
+    "applicationTemplateId": null,
+    "appOwnerOrganizationId": "023794f1-7c9d-4e98-923d-7b49114b2ac3",
+    "appRoleAssignmentRequired": false,
+    "createdDateTime": "2021-09-23T05:34:11Z",
+    "description": null,
+    "disabledByMicrosoftStatus": null,
+    "displayName": "EXAMPLE APP Not In your Tenant akoyqyqnwir-main-api ",
+    "homepage": null,
+    "loginUrl": null,
+    "logoutUrl": null,
+    "notes": null,
+    "notificationEmailAddresses": [],
+    "preferredSingleSignOnMode": null,
+    "preferredTokenSigningKeyThumbprint": null,
+    "replyUrls": ["https://az.contoso.red/token"],
+    "servicePrincipalNames": ["https://attacker.contoso.contoso.red", "daf4bf56-a102-4d4a-a9ef-572da8367884"],
+    "servicePrincipalType": "Application",
+    "signInAudience": "AzureADMultipleOrgs",
+    "tags": [],
+    "tokenEncryptionKeyId": null,
+    "samlSingleSignOnSettings": null,
+    "verifiedPublisher": {
+        "displayName": null,
+        "verifiedPublisherId": null,
+        "addedDateTime": null
+    },
+    "addIns": [],
+    "info": {
+        "logoUrl": null,
+        "marketingUrl": null,
+        "privacyStatementUrl": null,
+        "supportUrl": null,
+        "termsOfServiceUrl": null
+    },
+    "keyCredentials": [],
+    "passwordCredentials": [],
+    "resourceSpecificApplicationPermissions": [],
+    "owners": {
+        "userPrincipalName": ["joosua@contoso.onmicrosoft.com"]
+    },
+    "ApplicationHasPassword": [{
+        "customKeyIdentifier": null,
+        "displayName": "Password uploaded on Tue Dec 14 2021",
+        "endDateTime": "2022-06-14T12:39:33.895Z",
+        "hint": "F2W",
+        "keyId": "e6476559-77aa-42d6-8a62-da013c7fdbc3",
+        "secretText": null,
+        "startDateTime": "2021-12-14T13:39:33.895Z"
+    }],
+    "ApplicationHasPublicClient": "",
+    "ApplicationHasRequiredAccess": [
+        [{
+            "adminConsentDescription": "Allow this application to access Log Analytics data on behalf of the user",
+            "adminConsentDisplayName": "Read Log Analytics data as user",
+            "id": "e8dac03d-d467-4a7e-9293-9cca7df08b31",
+            "isEnabled": true,
+            "type": "User",
+            "userConsentDescription": "Allow this application to access your Log Analytics Data",
+            "userConsentDisplayName": "Read Log Analytics Data",
+            "value": "Data.Read",
+            "resource": "Log Analytics API"
+        }],
+        [{
+            "adminConsentDescription": "Allows users to sign in to the app with their work or school accounts and allows the app to see basic user profile information.",
+            "adminConsentDisplayName": "Sign users in",
+            "id": "37f7f235-527c-4136-accd-4a02d197296e",
+            "isEnabled": true,
+            "type": "User",
+            "userConsentDescription": "Allows you to sign in to the app with your work or school account and allows the app to read your basic profile information.",
+            "userConsentDisplayName": "Sign in as you",
+            "value": "openid",
+            "resource": "Microsoft Graph"
+        }]
+    ],
+    "appRoles": [],
+    "oauth2PermissionScopes": [],
+    "danglingRedirect": []
+}]

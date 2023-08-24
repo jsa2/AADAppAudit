@@ -1,0 +1,6 @@
+ // //////// ///////
+servicePrincipalsUP
+| project appId, displayName, appType, permissionsReading, allCredentials, owners, isAdminAADrole, danglingRedirect
+| extend includesMultipleCredentialSources = case(tostring(allCredentials) contains "App" and tostring(allCredentials) contains "SPN", true, false)
+| extend MultitenantAppWithTenantedCreds = iff(tostring(allCredentials) contains "SPN" and appType !contains "internal" and appType !contains "managed" , true, false )
+| extend SharedAppForUserAndAppPermissions = iff(tostring(permissionsReading) contains "AppRole -->" and tostring(permissionsReading) contains "oauth2PermissionGrants -->" , true, false )
