@@ -202,7 +202,7 @@ To only generate CSV, you can run the tool in limited mode, which removes some b
 
 https://www.secureworks.com/research/power-platform-privilege-escalation
 
-The advisory highlighted that malicious parties could claim abandoned replyURLs. This tool checks for these URLs in your ServicePrincipals, multitenant ServicePrincipals. 
+The advisory highlighted that malicious parties could claim abandoned replyURLs. This tool checks for these URLs in your ServicePrincipals, and multitenant ServicePrincipals. 
 
 The check for dangling replyURLS are done based on the following FQDN's  
 ```js 
