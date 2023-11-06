@@ -72,7 +72,12 @@ async function mainV2(token) {
      // Check for betaSign-ins 
 
      const lastSignIn = []
-     await graphListModBeta(token?.access_token, '/reports/servicePrincipalSignInActivities', undefined,lastSignIn)
+     try {
+        await graphListModBeta(token?.access_token, '/reports/servicePrincipalSignInActivities', undefined,lastSignIn)
+     } catch (err) {
+        console.log('skipping lastsignins, user likely not in required role')
+     }
+     
 
      //
  
