@@ -43,6 +43,18 @@ Read the [MIT license](LICENSE)
 
 ## List of checks 
 
+### Additional Explanations
+
+#### includesMultipleCredentialSources 
+* **Description:** This feature identifies cases where an application possesses credentials both in the Service Principal (SPN) and on the application's side. It's particularly useful because the user interface does not show credentials that are on the SPN side.
+
+#### MultitenantAppWithTenantedCreds
+* **Description:** Refers to multi-tenant applications where all credentials should be in the home tenant. However, if some credentials are added to your tenant, it implies a significant risk of impersonation within your tenant.
+
+#### SharedAppForUserAndAppPermissions
+* **Description:** This scenario involves applications that combine both application and delegated permissions. The risk here is that a compromised client secret, which normally requires a user's authorization code or refresh token for delegated permissions, can now be used independently.
+
+
 1. List app type
 
 ![](20230428143147.png)
