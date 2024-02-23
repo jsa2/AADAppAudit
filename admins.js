@@ -1,5 +1,5 @@
 const { axiosClient } = require("./src/axioshelpers")
-const { graphBatchingBeta } = require("./src/batcher")
+const { graphBatchingBeta, graphBatching } = require("./src/batcher")
 const getToken = require("./src/getToken")
 
 module.exports = { admins }
@@ -27,7 +27,7 @@ async function admins() {
 
 
 
-    const admins = await graphBatchingBeta(rolesForBatch, graphToken, (item) => item?.map(s => s = { value: s?.body?.value, id: s?.id }), undefined, 5, 200)
+    const admins = await graphBatching(rolesForBatch, graphToken, (item) => item?.map(s => s = { value: s?.body?.value, id: s?.id }), undefined, 5, 200, 'beta')
     const groups =[]
     const list = []
     admins.map(it => {
@@ -43,7 +43,7 @@ async function admins() {
 
     let rolesViaGroupAssignment = groups.map(item => item = { url: `/groups/${item.id}/members/microsoft.graph.servicePrincipal?select=id,displayName,appId`, method: "GET", providedId: `${item?.role}-via-${item?.displayName}` })
 
-    const adminsViaGroups = await graphBatchingBeta(rolesViaGroupAssignment, graphToken, (item) => item?.map(s => s = { value: s?.body?.value, id: s?.id }), undefined, 5, 200)
+    const adminsViaGroups = await graphBatching(rolesViaGroupAssignment, graphToken, (item) => item?.map(s => s = { value: s?.body?.value, id: s?.id }), undefined, 5, 200,'beta')
 
     adminsViaGroups.forEach(it => {
         it.value.forEach(spn => {

@@ -32,6 +32,7 @@ async function run() {
 
     var tEnc = decode(token)
     fs.writeFileSync('kql/tid.txt', tEnc.tid)
+    
 
     await mainV2({
         access_token: token,

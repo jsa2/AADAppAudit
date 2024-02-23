@@ -6,6 +6,7 @@ runtime.kql
 tid.txt
 *.csv
 *.ps1
+*.txt
 # exclude from JSON flag
 !package.json
 !package-lock.json

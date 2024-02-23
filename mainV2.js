@@ -122,7 +122,7 @@ async function mainV2(token) {
 
     // Symmetric return filter is implemented for users (assumes all values are symmetric)
 
-    let users = await graphBatching(usersBatch, token?.access_token, (item) => item?.map(s => s?.body))
+    let users = await graphBatching(usersBatch, token?.access_token, (item) => item?.map(s => s?.body),undefined,undefined,'beta')
 
 
     fs.writeFileSync('users.json', JSON.stringify(users))
@@ -189,6 +189,8 @@ async function mainV2(token) {
 
     let AppOwnersOwnersBatch = applications.filter(app => app.HasOwner == 'appsOwner')
     .map(s => s = { url: `/applications/${s?.id}/owners?$select=id,displayName&$top=999`, method: "GET", providedId: s?.appId })
+
+    fs.writeFileSync('appOwners.json',JSON.stringify(AppOwnersOwnersBatch,undefined,4))
 
     // modify so, that the ID created in MAP can be mapped back to result
     let appOwners = await graphBatching(AppOwnersOwnersBatch, token?.access_token, (item) => item?.map(s => s = { content: s?.body?.value, id: s?.id }), undefined, 5, 200)

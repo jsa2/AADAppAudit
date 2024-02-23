@@ -24,6 +24,8 @@ Read the [MIT license](LICENSE)
 
 # Release notes
     Beta 
+    Beta v 0.2.1
+    - Retry mode added. use "--retry=2" to run two retry loops for requests not batched with response code 200. The main use case is to throttle HTTP code 429 when using the $batch endpoint of graph. This is partial address to earlier issue which referenced issues in larger tenants https://github.com/jsa2/AADAppAudit/issues/9  
     Beta v 0.1.8
     - LastSignInTime as per https://learn.microsoft.com/en-us/graph/api/reportroot-list-serviceprincipalsigninactivities?view=graph-rest-beta
     Beta v 0.1.7 
