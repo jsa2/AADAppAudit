@@ -1,3 +1,11 @@
+
+
+# UPDATE 
+
+**Project archived due to shifting development priorities and refocusing my community efforts to other areas (PoCs, other tools and demos/presentation), project is set to read-only.**
+
+--- 
+
 - [Azure AD Application Analytics Solution](#azure-ad-application-analytics-solution)
 - [Before using this tool](#before-using-this-tool)
 - [Release notes](#release-notes)
